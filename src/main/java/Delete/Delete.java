@@ -16,6 +16,7 @@ public class Delete {
      */
     public static void main(String[] args) {
             System.out.println("ciao, Luisa");
+            System.out.println("ciao, Franci");
         // TODO code application logic here
     }
     
