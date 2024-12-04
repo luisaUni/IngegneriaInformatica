@@ -1,10 +1,10 @@
-package com.example;
+package it.unisa.diem.progettoinf.gruppo25.developed;
 
 /**
  * Hello world!
  *
  */
-public class App 
+public class Applicazione 
 {
     public static void main( String[] args )
     {
