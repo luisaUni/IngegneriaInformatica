@@ -5,10 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+<<<<<<< HEAD
  * @file Rubrica.java
  * @class Classe per rappresentare e gestire una rubrica di contatti.
  *
  * Questa classe offre funzionalità per gestire una lista di contatti,
+=======
+ * @class Rubrica.java
+ * @brif Classe per rappresentare e gestire una rubrica di contatti.
+ * 
+ * Questa classe offre funzionalità per gestire una lista di contatti, 
+>>>>>>> 2b98e25c09f0a552f6894c569517f0b02d0ef9a9
  * inclusa l'aggiunta, la rimozione, la ricerca e l'ordinamento.
  *
  * @author Luisa Crivo, Francesca De Pascale, Antonio Manuel Fedullo
