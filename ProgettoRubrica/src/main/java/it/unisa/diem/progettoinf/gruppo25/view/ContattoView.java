@@ -1,4 +1,5 @@
 package it.unisa.diem.progettoinf.gruppo25.view;
+import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
 
 /**
  * @class ContattoView

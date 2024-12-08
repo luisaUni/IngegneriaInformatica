@@ -1,4 +1,7 @@
 package it.unisa.diem.progettoinf.gruppo25.controller;
+import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
+import java.util.List;
+import it.unisa.diem.progettoinf.gruppo25.view.ElencoView;
 
 /**
  * @class ElencoController

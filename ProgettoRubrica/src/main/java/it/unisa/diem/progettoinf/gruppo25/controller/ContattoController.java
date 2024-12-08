@@ -1,4 +1,6 @@
 package it.unisa.diem.progettoinf.gruppo25.controller;
+import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
+import it.unisa.diem.progettoinf.gruppo25.view.ContattoView;
 
 /**
  * @class ContattoController

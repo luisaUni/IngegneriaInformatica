@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package it.unisa.diem.progettoinf.gruppo25.model;
+import java.util.List;
+
 
 /**
  * @file RubricaInterface.java
