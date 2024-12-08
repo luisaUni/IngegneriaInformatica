@@ -18,6 +18,7 @@ public class Contatto {
     private String email1;
     private String email2;
     private String email3;
+    private boolean preferito;
 
     public Contatto(String nome, String cognome, String numero1, String numero2, String numero3, String email1, String email2, String email3) {
         this.nome = nome;
@@ -71,15 +72,27 @@ public class Contatto {
     }
 
     public void setNumero1(String numero1) {
-        this.numero1 = numero1;
+      if (numero1.equals(this.numero2) || numero1.equals(this.numero3)) {
+        throw new IllegalArgumentException("Numero già esistente.");
+    }
+      this.numero1 = numero1;
+
     }
 
     public void setNumero2(String numero2) {
-        this.numero2 = numero2;
+      if (numero2.equals(this.numero1) || numero2.equals(this.numero3)) {
+        throw new IllegalArgumentException("Numero già esistente.");
+  }
+      this.numero2 = numero2;
+
     }
 
     public void setNumero3(String numero3) {
+      if (numero3.equals(this.numero1) || numero3.equals(this.numero2)) {
+        throw new IllegalArgumentException("Numero già esistente.");
+   }
         this.numero3 = numero3;
+
     }
 
     public void setEmail1(String email1) {
@@ -93,6 +106,12 @@ public class Contatto {
     public void setEmail3(String email3) {
         this.email3 = email3;
     }
-    
-    
+
+    public boolean isPreferito(){
+      return preferito;
+    }
+
+    public void setPreferito(boolean preferito){
+      this.preferito = preferito;
+    }
 }
