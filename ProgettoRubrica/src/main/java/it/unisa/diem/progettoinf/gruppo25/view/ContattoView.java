@@ -10,11 +10,13 @@ package it.unisa.diem.progettoinf.gruppo25.view;
  * @author Luisa Crivo, Francesca De Pascale, Antonio Manuel Fedullo
  *
  */
+ public class ContattoView{
+ /**
+ * @brief Visualizza le informazioni di un contatto.
+ * @param[in] contatto Il contatto da visualizzare.
+ */
 
+ public void displayContatto(Contatto contatto){
 
-
-
-
-public class ContattoView{
-
+ }
 }

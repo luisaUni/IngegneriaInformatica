@@ -1,5 +1,5 @@
 package it.unisa.diem.progettoinf.gruppo25.view;
-
+import java.util.List;
 
 /**
  * @class ElencoView
@@ -9,7 +9,14 @@ package it.unisa.diem.progettoinf.gruppo25.view;
  * o operazioni specifiche su di essi.
  * @author Luisa Crivo, Francesca De Pascale, Antonio Manuel Fedullo
  */
- 
-public class ElencoView{
 
+ public class ElencoView{
+   /**
+   * @brief Visualizza l'elenco dei contatti.
+   * @param[in] elenco L'elenco di contatti da visualizzare.
+   */
+
+   public void displayElenco(List<Contatto> elenco){
+
+   }
 }
