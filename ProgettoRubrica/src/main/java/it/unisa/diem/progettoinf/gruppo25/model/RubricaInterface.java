@@ -6,12 +6,45 @@
 package it.unisa.diem.progettoinf.gruppo25.model;
 
 /**
- *
- * @author luisacrivo
+ * @file RubricaInterface.java
+ * @brief Interfaccia per la gestione di una rubrica di contatti.
+ * 
+ * Questa interfaccia definisce le operazioni principali per gestire una rubrica,
+ * come aggiungere, eliminare, cercare e ordinare i contatti.
  */
 public interface RubricaInterface {
+    
+    /**
+     * @brief Aggiunge un contatto alla rubrica.
+     * 
+     * @pre Il contatto `c` non deve essere nullo.
+     * 
+     * @post Il contatto `c` viene aggiunto alla rubrica se non è già presente.
+     * 
+     * @param[in] c Contatto da aggiungere.
+     */
     public void aggiungiContatto(Contatto c);
+    
+    /**
+     * @brief Elimina un contatto dalla rubrica.
+     * 
+     * @pre Il contatto `c` deve esistere nella rubrica.
+     * @post Il contatto `c` viene rimosso dalla rubrica.
+     * 
+     * @param[in] c Contatto da eliminare.
+     */
     public void eliminaContatto(Contatto c);
+    
+    
     public Contatto cercaContatto(String s);
+    
+    /**
+     * @brief Ordina i contatti nella rubrica.
+     * 
+     * @pre La rubrica non deve essere vuota.
+     * @post I contatti nella rubrica sono ordinati secondo il criterio specificato.
+     * 
+     * @param[in] e Rubrica da ordinare.
+     */
     public void ordina(Rubrica e);
 }
