@@ -8,7 +8,7 @@ import java.util.List;
 import java.io.*;
 
 /**
- * @file GestoreFile.java
+ * @class GestoreFile.java
  * 
  * @brief Classe per leggere e scrivere dati da e verso file CSV.
  * 
