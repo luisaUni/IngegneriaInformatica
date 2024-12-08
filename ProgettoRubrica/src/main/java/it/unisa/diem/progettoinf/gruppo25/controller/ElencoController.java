@@ -6,6 +6,7 @@ package it.unisa.diem.progettoinf.gruppo25.controller;
  *
  * Comunica con il Modello per gestire l'elenco completo dei contatti e con la View
  * per mostrarli o ricevere input dall'utente.
+ *
  * @author Luisa Crivo, Francesca De Pascale, Antonio Manuel Fedullo
  */
 
