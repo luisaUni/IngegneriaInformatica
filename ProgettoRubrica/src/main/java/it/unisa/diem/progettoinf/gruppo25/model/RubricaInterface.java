@@ -8,7 +8,7 @@ import java.util.List;
 
 
 /**
- * @class RubricaInterface.java
+ * @class RubricaInterface
  * @brief Interfaccia per la gestione di una rubrica di contatti.
  *
  * Questa interfaccia definisce le operazioni principali per gestire una rubrica,

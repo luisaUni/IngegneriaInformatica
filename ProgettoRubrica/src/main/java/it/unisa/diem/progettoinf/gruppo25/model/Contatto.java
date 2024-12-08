@@ -6,7 +6,7 @@
 package it.unisa.diem.progettoinf.gruppo25.model;
 
 /**
- * @class Contatto.java
+ * @class Contatto
  *
  * @brief Modello per rappresentare un contatto con numeri di telefono, email.
  *

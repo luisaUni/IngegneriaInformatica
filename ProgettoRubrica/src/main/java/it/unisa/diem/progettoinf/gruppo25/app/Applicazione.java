@@ -6,8 +6,8 @@ import javafx.stage.Stage;
 /**
  * @brief La classe Applicazione è la classe principale dell'applicazione JavaFX.
  *
- * Questa classe estende la classe {@link Application} di JavaFX e funge da punto di ingresso per l'applicazione.
- * Nel metodo main viene gestito il ciclo di vita dell'applicazione tramite il metodo {@link start}.
+ * Questa classe estende la classe di JavaFX e funge da punto di ingresso per l'applicazione.
+ * Nel metodo main viene gestito il ciclo di vita dell'applicazione tramite il metodo start.
  */
 public class Applicazione extends Application {
 
