@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.unisa.diem.progettoinf.gruppo25.developed;
+package it.unisa.diem.progettoinf.gruppo25.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,34 +14,34 @@ import java.util.List;
  */
 public class Rubrica {
     private List<Contatto> elenco;
-    
+
     public Rubrica(){
         elenco= new ArrayList();
     }
-    
-    
+
+
     public void aggiungiContatto(Contatto c){
-        
+
     }
-    
+
     public void eliminaContatto(Contatto c){
-        
+
     }
-    
+
     public Contatto cercaContatto(String s){
         return null;
-        
+
     }
-    
+
     public void ordina(Rubrica e){
-        
+
     }
-    
-    
-    
+
+
+
     @Override
     public String toString(){
-        return "";  
+        return "";
     }
 
 }
