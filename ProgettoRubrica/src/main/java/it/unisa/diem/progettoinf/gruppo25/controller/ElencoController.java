@@ -19,7 +19,7 @@ import it.unisa.diem.progettoinf.gruppo25.view.ElencoView;
 
     /**
      * @brief Costruttore della classe.
-     * @param[in]elenco L'elenco dei contatti da gestire.
+     * @param[in] elenco L'elenco dei contatti da gestire.
      * @param[in] elencoView La vista associata all'elenco.
      */
     public ElencoController(List<Contatto> elenco, ElencoView elencoView) {
