@@ -21,7 +21,8 @@ public class GestoreFile {
   private static final String FILE_DEFAULT = "rubrica.csv";
 
     /**
-    * @brief Restituisce un file di default. Il file di default è il file su cui il sistema esegue le operazioni di lettira e scrittura di default.
+    * @brief Restituisce un file di default. 
+    * Il metodo restituisce il file di default, ossia il file su cui il sistema esegue le operazioni di lettira e scrittura di default.
     * @return File di default.
     */
 
@@ -42,10 +43,10 @@ public class GestoreFile {
      * @throws IOException Se si verifica un errore durante l'accesso al file.
      */
 
-    // L'utente decide di importare da un file CSV esterno diverso da quello di default.
+
     public static Rubrica importa(String filename) throws IOException {
       if (filename == null) {
-          throw new IllegalArgumentException("Il nome del file non può essere nullo o vuoto.");
+          throw new IllegalArgumentException("Il nome del file non può essere nullo.");
       }
         Rubrica r = new Rubrica();
          try(Scanner i = new Scanner(new BufferedReader(new FileReader(filename)))){
@@ -69,7 +70,12 @@ public class GestoreFile {
         return r;
     }
 
-  // L'utente importa dal file CSV di default.
+    /** @brief Legge il file CSV di default.
+     *  
+     * Questo metodo sfrutta il metodo importa passandogli come 'filename' quello del file CSV di default.
+     * @return Lista di contatti letta dal file CSV.
+     * @throws IOException Se si verifica un errore durante l'accesso al file.
+     */
     public static Rubrica leggiCSV() throws IOException{
       return importa(FILE_DEFAULT);
     }
@@ -77,7 +83,7 @@ public class GestoreFile {
     /**
      * @brief Scrive una lista di contatti nel file CSV di default.
      *
-     * Questo metodo salva una lista di oggetti `Contatto` nel file CSV di default.
+     * Questo metodo salva una lista di oggetti `Contatto` attraverso il metodo esporta, passandogli come 'filename' quello del file CSV di default.
      *
      * @pre La lista `rubrica` non deve essere nulla.
      * @post Se l'operazione ha successo, il file di default contiene i dati della lista `rubrica` in formato CSV.
