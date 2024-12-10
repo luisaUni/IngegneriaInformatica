@@ -5,6 +5,7 @@
  */
 package it.unisa.diem.progettoinf.gruppo25.controller;
 import it.unisa.diem.progettoinf.gruppo25.app.Applicazione;
+import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -54,7 +55,7 @@ public class ElencoViewController implements Initializable {
 
     @FXML
     private void switchToSecondary() throws IOException{
-      Applicazione.setRoot("secondary");
+     // Applicazione.setRoot("secondary");
     }
 
     /**
