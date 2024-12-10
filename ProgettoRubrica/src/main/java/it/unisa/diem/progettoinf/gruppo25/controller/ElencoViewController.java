@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package it.unisa.diem.progettoinf.gruppo25.controller;
-
+import it.unisa.diem.progettoinf.gruppo25.app;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -24,7 +25,6 @@ import javafx.scene.layout.VBox;
  * @author antoniofedullo
  */
 public class ElencoViewController implements Initializable {
-
     @FXML
     private AnchorPane contenitore;
     @FXML
@@ -52,12 +52,18 @@ public class ElencoViewController implements Initializable {
     @FXML
     private TableColumn<?, ?> colonnaInfo;
 
+    @FXML
+    private void switchToSecondary() throws IOException{
+      Applicazione.setRoot("secondary");
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+        
+    }
+
 }

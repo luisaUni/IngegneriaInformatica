@@ -18,7 +18,7 @@ package it.unisa.diem.progettoinf.gruppo25.model;
  */
 
 
-public class Contatto {
+public class Contatto implements Comparable<Contatto>{
     private String nome;
     private String cognome;
     private String numero1;
@@ -225,5 +225,16 @@ public class Contatto {
      */
     public void setPreferito(boolean preferito){
       this.preferito = preferito;
+    }
+
+    @Override
+    public int compareTo(Contatto o) {
+      int nameComparison = this.nome.compareToIgnoreCase(o.nome);
+
+      if (nameComparison == 0) {
+        return this.cognome.compareToIgnoreCase(o.cognome);
+    }
+      return nameComparison;
+
     }
 }
