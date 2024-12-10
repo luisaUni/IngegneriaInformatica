@@ -53,6 +53,10 @@ public class Contatto implements Comparable<Contatto>{
         this.email3 = email3;
     }
 
+    public Contatto(){
+      
+    }
+
     /**
      * @brief Restituisce il nome del contatto.
      *

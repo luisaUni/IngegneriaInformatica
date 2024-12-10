@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package it.unisa.diem.progettoinf.gruppo25.model;
+import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
 
@@ -41,7 +42,7 @@ public class GestoreFile {
 
     // L'utente decide di importare da un file CSV esterno diverso da quello di default.
     public static Rubrica importa(String filename) throws IOException {
-      if (== null || filename.isBlank()) {
+      if (filename == null || filename.isBlank()) {
           throw new IllegalArgumentException("Il nome del file non può essere nullo o vuoto.");
       }
         Rubrica r = new Rubrica();
@@ -49,7 +50,7 @@ public class GestoreFile {
             i.useLocale(Locale.US);
             i.useDelimiter(";\n*");
 
-            Contatto c = new Contatto();
+            Contatto c = new Contatto(nome,cognome,numero1,numero2,numero3,email1,email2,email3);
             while(i.hasNext()){
               c.setNome(i.hasNext() ? i.next() : null);
               c.setCognome(i.hasNext() ? i.next() : null);
