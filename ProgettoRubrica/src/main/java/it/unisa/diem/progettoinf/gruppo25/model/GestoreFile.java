@@ -17,11 +17,14 @@ import java.io.*;
 public class GestoreFile {
   private static final String FILE_DEFAULT = "rubrica.csv";
 
+    /**
+    * @brief Restituisce un file di default. Il file di default è il file su cui il sistema esegue le operazioni di lettira e scrittura di default.
+    * @return File di default.
+    */
+
     public static String getFileDefault() {
         return FILE_DEFAULT;
     }
-
-
     /**
      * @brief Legge un file CSV e restituisce una lista di contatti.
      *
@@ -35,98 +38,70 @@ public class GestoreFile {
      * @return Lista di contatti letta dal file CSV.
      * @throws IOException Se si verifica un errore durante l'accesso al file.
      */
-    public static Rubrica importaCSV() throws IOException {
-      Rubrica r = new Rubrica();
-      try(BufferedReader br = new BufferedReader(new FileReader(FILE_DEFAULT))){
 
-            if(br.readLine() == null){ // controlla se il file sia vuoto (riga nulla)
-                return r;
+    // L'utente decide di importare da un file CSV esterno diverso da quello di default.
+    public static Rubrica importa(String filename) throws IOException {
+      if (== null || filename.isBlank()) {
+          throw new IllegalArgumentException("Il nome del file non può essere nullo o vuoto.");
+      }
+        Rubrica r = new Rubrica();
+         try(Scanner i = new Scanner(new BufferedReader(new FileReader(filename)))){
+            i.useLocale(Locale.US);
+            i.useDelimiter(";\n*");
+
+            Contatto c = new Contatto();
+            while(i.hasNext()){
+              c.setNome(i.hasNext() ? i.next() : null);
+              c.setCognome(i.hasNext() ? i.next() : null);
+              c.setNumero1(i.hasNext() ? i.next() : null);
+              c.setNumero2(i.hasNext() ? i.next() : null);
+              c.setNumero3(i.hasNext() ? i.next() : null);
+              c.setEmail1(i.hasNext() ? i.next() : null);
+              c.setEmail2(i.hasNext() ? i.next() : null);
+              c.setEmail3(i.hasNext() ? i.next() : null);
+              r.aggiungiContatto(c);
             }
-
-            String line;
-            while ((line = br.readLine()) != null) {
-               String[] fields = line.split(";");
-               String nome = fields.length > 0 ? fields[0] : null;
-               String cognome = fields.length > 1 ? fields[1] : null;
-               String numero1 = fields.length > 2 ? fields[2] : null;
-               String numero2 = fields.length > 3 ? fields[3] : null;
-               String numero3 = fields.length > 4 ? fields[4] : null;
-               String email1 = fields.length > 5 ? fields[5] : null;
-               String email2 = fields.length > 6 ? fields[6] : null;
-               String email3 = fields.length > 7 ? fields[7] : null;
-
-               Contatto c = new Contatto(nome, cognome, numero1, numero2, numero3, email1, email2, email3);
-               r.aggiungiContatto(c);
-           }
-
-        }
+         }
 
         return r;
+    }
 
+  // L'utente importa dal file CSV di default.
+    public static Rubrica leggiCSV() throws IOException{
+      return importa(FILE_DEFAULT);
     }
 
     /**
-     * @brief Scrive una lista di contatti in un file CSV.
+     * @brief Scrive una lista di contatti nel file CSV di default.
      *
-     * Questo metodo salva una lista di oggetti `Contatto` in un file CSV specificato dal parametro `filename`.
+     * Questo metodo salva una lista di oggetti `Contatto` nel file CSV di default.
      *
      * @pre La lista `rubrica` non deve essere nulla.
-     * @post Se l'operazione ha successo, il file `filename` contiene i dati della lista `rubrica` in formato CSV.
+     * @post Se l'operazione ha successo, il file di default contiene i dati della lista `rubrica` in formato CSV.
      *
      * @param[inout] filename Nome del file CSV in cui scrivere i dati.
      * @param[in] rubrica Lista di contatti da salvare nel file CSV.
      * @throws IOException Se si verifica un errore durante l'accesso al file.
      */
-    public static void scriviCSV(Contatto c) throws IOException {
-      try(PrintWriter pw= new PrintWriter(new BufferedWriter(new FileWriter(FILE_DEFAULT)))){
-
-        pw.println("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3");
-
-          if(c.getNome() != null){
-            pw.print(c.getNome());
-          }
-          pw.append(";");
-
-          if(c.getCognome()!= null){
-            pw.print(c.getCognome());
-          }
-          pw.append(";");
-
-          if(c.getNumero1()!= null){
-            pw.print(c.getNumero1());
-          }
-          pw.append(";");
-
-          if(c.getNumero2()!= null){
-              pw.print(c.getNumero2());
-          }
-          pw.append(";");
-
-          if(c.getNumero3()!= null){
-              pw.print(c.getNumero3());
-          }
-          pw.append(";");
-
-          if(c.getEmail1()!= null){
-              pw.print(c.getEmail1());
-          }
-          pw.append(";");
-
-          if(c.getEmail2()!= null){
-              pw.print(c.getEmail2());
-          }
-          pw.append(";");
-
-          if(c.getEmail3()!= null){
-              pw.print(c.getEmail3());
-          }
-            pw.append("\n");
-        }
-
+    public static void scriviCSV(ArrayList<Contatto> rubrica) throws IOException {
+        esporta(FILE_DEFAULT, rubrica);
     }
 
 
+    /**
+    * @brief Scrive una lista di contatti in un file specificato dal nome 'filename'.
+    *
+    * Questo metodo salva una lista di oggetti `Contatto` nel file CSV di default.
+    * @pre La lista `rubrica` non deve essere nulla.
+    * @post Se l'operazione ha successo, il file 'filename' contiene i dati della lista `rubrica` in formato CSV.
+    *
+    * @param[in] rubrica Lista di contatti da salvare nel file CSV.
+    * @throws IOException Se si verifica un errore durante l'accesso al file.
+    */
     public static void esporta(String filename, ArrayList<Contatto> rubrica) throws IOException{
+      if (rubrica == null || rubrica.isEmpty()) {
+        throw new IllegalArgumentException("La rubrica non può essere nulla o vuota.");
+    }
       try(PrintWriter pw= new PrintWriter(new BufferedWriter(new FileWriter(filename)))){
 
         pw.println("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3");

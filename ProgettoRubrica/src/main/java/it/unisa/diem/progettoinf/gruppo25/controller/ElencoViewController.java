@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package it.unisa.diem.progettoinf.gruppo25.controller;
-import it.unisa.diem.progettoinf.gruppo25.app;
+import it.unisa.diem.progettoinf.gruppo25.app.Applicazione;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,15 +42,15 @@ public class ElencoViewController implements Initializable {
     @FXML
     private TextField tfdCerca;
     @FXML
-    private TableView<?> tblElenco;
+    private TableView<Contatto> tblElenco;
     @FXML
-    private TableColumn<?, ?> colonnaNome;
+    private TableColumn<Contatto, String> colonnaNome;
     @FXML
-    private TableColumn<?, ?> colonnaCognome;
+    private TableColumn<Contatto, String> colonnaCognome;
     @FXML
-    private TableColumn<?, ?> colonnaPreferito;
+    private TableColumn<Contatto, Void> colonnaPreferito;
     @FXML
-    private TableColumn<?, ?> colonnaInfo;
+    private TableColumn<Contatto, Void> colonnaInfo;
 
     @FXML
     private void switchToSecondary() throws IOException{
@@ -63,7 +63,7 @@ public class ElencoViewController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
+
     }
 
 }
