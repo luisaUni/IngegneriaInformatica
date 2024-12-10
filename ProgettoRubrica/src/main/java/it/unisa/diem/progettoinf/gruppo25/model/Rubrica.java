@@ -1,8 +1,9 @@
 
 package it.unisa.diem.progettoinf.gruppo25.model;
-
 import java.util.ArrayList;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -17,7 +18,8 @@ import java.util.List;
  * @author Luisa Crivo, Francesca De Pascale, Antonio Manuel Fedullo
  */
 public class Rubrica implements RubricaInterface{
-     private List<Contatto> elenco;
+
+     private ObservableList<Contatto> elenco;
 
     /**
      * @brief Costruttore di default della classe `Rubrica`.
@@ -26,7 +28,7 @@ public class Rubrica implements RubricaInterface{
      */
 
      public Rubrica(){
-        elenco= new ArrayList();
+        elenco= FXCollections.observableArrayList();
      }
 
 
@@ -40,19 +42,16 @@ public class Rubrica implements RubricaInterface{
      * @param[in] c Contatto da aggiungere.
      */
      @Override
-     public void aggiungiContatto(Contatto c){
+     public void aggiungiContatto(Contatto c) {
        if ((c.getNome() != null && !c.getNome().trim().isEmpty()) || (c.getCognome() != null && !c.getCognome().trim().isEmpty())){
             elenco.add(c);
-            scrivi();
           }
        else{
           System.out.println("Errore: impossibile inserire contatto con campo nome e cognome vuoto ");
        }
      }
 
-     private void scrivi() {
-        GestoreFile.scriviCSV("rubrica.csv", this);
-     }
+
 
     /**
      * @brief Elimina un contatto dalla rubrica.
@@ -65,7 +64,7 @@ public class Rubrica implements RubricaInterface{
      @Override
      public void eliminaContatto(Contatto c){
         if(elenco.remove(c)){
-          scrivi();
+
         }
      }
 
