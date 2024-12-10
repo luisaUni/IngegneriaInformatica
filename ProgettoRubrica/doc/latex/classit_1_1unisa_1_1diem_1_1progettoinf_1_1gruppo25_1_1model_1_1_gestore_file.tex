@@ -1,0 +1,81 @@
+\doxysection{it.\+unisa.\+diem.\+progettoinf.\+gruppo25.\+model.\+Gestore\+File Class Reference}
+\hypertarget{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file}{}\label{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file}\index{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile@{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile}}
+
+
+Classe per leggere e scrivere dati da e verso file CSV.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_contatto}{Contatto}} $>$ \mbox{\hyperlink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file_a79e59bbb649b283c21e42c61a21f78e8}{leggi\+CSV}} (String filename)  throws IOException 
+\begin{DoxyCompactList}\small\item\em Legge un file CSV e restituisce una lista di contatti. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file_a1790a8053c6021a349cb7865b9c3a45b}{scrivi\+CSV}} (String filename, List$<$ \mbox{\hyperlink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_contatto}{Contatto}} $>$ rubrica)  throws IOException 
+\begin{DoxyCompactList}\small\item\em Scrive una lista di contatti in un file CSV. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe per leggere e scrivere dati da e verso file CSV. 
+
+\begin{DoxyAuthor}{Author}
+Luisa Crivo, Francesca De Pascale, Antonio Manuel Fedullo 
+\end{DoxyAuthor}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file_a79e59bbb649b283c21e42c61a21f78e8}\index{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile@{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile}!leggiCSV@{leggiCSV}}
+\index{leggiCSV@{leggiCSV}!it.unisa.diem.progettoinf.gruppo25.model.GestoreFile@{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile}}
+\doxysubsubsection{\texorpdfstring{leggiCSV()}{leggiCSV()}}
+{\footnotesize\ttfamily \label{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file_a79e59bbb649b283c21e42c61a21f78e8} 
+List$<$ \mbox{\hyperlink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_contatto}{Contatto}} $>$ it.\+unisa.\+diem.\+progettoinf.\+gruppo25.\+model.\+Gestore\+File.\+leggi\+CSV (\begin{DoxyParamCaption}\item[{String}]{filename}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Legge un file CSV e restituisce una lista di contatti. 
+
+Questo metodo legge il contenuto di un file CSV specificato dal parametro {\ttfamily filename} e lo converte in una lista di oggetti della classe {\ttfamily \doxylink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_contatto}{Contatto}}.
+
+\begin{DoxyPrecond}{Precondition}
+Il file specificato da {\ttfamily filename} deve esistere e deve essere di tipo CVS. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Se l\textquotesingle{}operazione ha successo, viene restituita una lista di contatti non nulla.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em filename} & Nome del file CSV da leggere. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Lista di contatti letta dal file CSV. 
+\end{DoxyReturn}
+\Hypertarget{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file_a1790a8053c6021a349cb7865b9c3a45b}\index{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile@{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile}!scriviCSV@{scriviCSV}}
+\index{scriviCSV@{scriviCSV}!it.unisa.diem.progettoinf.gruppo25.model.GestoreFile@{it.unisa.diem.progettoinf.gruppo25.model.GestoreFile}}
+\doxysubsubsection{\texorpdfstring{scriviCSV()}{scriviCSV()}}
+{\footnotesize\ttfamily \label{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_gestore_file_a1790a8053c6021a349cb7865b9c3a45b} 
+void it.\+unisa.\+diem.\+progettoinf.\+gruppo25.\+model.\+Gestore\+File.\+scrivi\+CSV (\begin{DoxyParamCaption}\item[{String}]{filename}{, }\item[{List$<$ \mbox{\hyperlink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_contatto}{Contatto}} $>$}]{rubrica}{}\end{DoxyParamCaption}) throws IOException\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Scrive una lista di contatti in un file CSV. 
+
+Questo metodo salva una lista di oggetti {\ttfamily \doxylink{classit_1_1unisa_1_1diem_1_1progettoinf_1_1gruppo25_1_1model_1_1_contatto}{Contatto}} in un file CSV specificato dal parametro {\ttfamily filename}.
+
+\begin{DoxyPrecond}{Precondition}
+La lista {\ttfamily rubrica} non deve essere nulla. 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Se l\textquotesingle{}operazione ha successo, il file {\ttfamily filename} contiene i dati della lista {\ttfamily rubrica} in formato CSV.
+\end{DoxyPostcond}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em filename} & Nome del file CSV in cui scrivere i dati. \\
+\hline
+\mbox{\texttt{ in}}  & {\em rubrica} & Lista di contatti da salvare nel file CSV. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/main/java/it/unisa/diem/progettoinf/gruppo25/model/Gestore\+File.\+java\end{DoxyCompactItemize}

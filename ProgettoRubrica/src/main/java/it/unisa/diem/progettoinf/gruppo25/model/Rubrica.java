@@ -17,16 +17,17 @@ import java.util.List;
  * @author Luisa Crivo, Francesca De Pascale, Antonio Manuel Fedullo
  */
 public class Rubrica implements RubricaInterface{
-    private List<Contatto> elenco;
+     private List<Contatto> elenco;
 
     /**
      * @brief Costruttore di default della classe `Rubrica`.
      *
      * @post Crea un oggetto `Rubrica` con una lista di contatti vuota.
      */
-    public Rubrica(){
+
+     public Rubrica(){
         elenco= new ArrayList();
-    }
+     }
 
 
     /**
@@ -39,9 +40,19 @@ public class Rubrica implements RubricaInterface{
      * @param[in] c Contatto da aggiungere.
      */
      @Override
-    public void aggiungiContatto(Contatto c){
+     public void aggiungiContatto(Contatto c){
+       if ((c.getNome() != null && !c.getNome().trim().isEmpty()) || (c.getCognome() != null && !c.getCognome().trim().isEmpty())){
+            elenco.add(c);
+            scrivi();
+          }
+       else{
+          System.out.println("Errore: impossibile inserire contatto con campo nome e cognome vuoto ");
+       }
+     }
 
-    }
+     private void scrivi() {
+        GestoreFile.scriviCSV("rubrica.csv", this);
+     }
 
     /**
      * @brief Elimina un contatto dalla rubrica.
@@ -52,9 +63,11 @@ public class Rubrica implements RubricaInterface{
      * @param[in] c Contatto da eliminare.
      */
      @Override
-    public void eliminaContatto(Contatto c){
-
-    }
+     public void eliminaContatto(Contatto c){
+        if(elenco.remove(c)){
+          scrivi();
+        }
+     }
 
     /**
     * @brief Cerca un contatto dalla rubrica attraverso una stringa/sottostringa e ritorna una lista con i contatti che rispecchiano la ricerca.
@@ -67,9 +80,16 @@ public class Rubrica implements RubricaInterface{
 
     @Override
     public List<Contatto> cercaContatto(String s){
-        return null;
-
+        List<Contatto> risultati = new ArrayList<>();
+        for (Contatto contatto : elenco) {
+          if (contatto.getNome().toLowerCase().startsWith(s.toLowerCase()) || contatto.getCognome().toLowerCase().startsWith(s.toLowerCase())) {
+            risultati.add(contatto);
+          }
+        }
+        return risultati;
     }
+
+
 
     /**
      * @brief Ordina i contatti nella rubrica.
@@ -79,10 +99,13 @@ public class Rubrica implements RubricaInterface{
      *
      * @param[in] e Rubrica da ordinare.
      */
-     @Override
-    public void ordina(Rubrica e){
 
-    }
+    @Override
+     public void ordina(){
+        elenco.sort(null);
+     }
+
+
 
     /**
      * @brief Restituisce una rappresentazione testuale della rubrica.
@@ -91,9 +114,14 @@ public class Rubrica implements RubricaInterface{
      *
      * @return Stringa rappresentativa della rubrica.
      */
+
     @Override
     public String toString(){
-        return "";
+       StringBuilder sb = new StringBuilder();
+       for (Contatto contatto : elenco) {
+           sb.append(contatto.toString()).append("\n");
+       }
+       return sb.toString();
     }
 
 }
