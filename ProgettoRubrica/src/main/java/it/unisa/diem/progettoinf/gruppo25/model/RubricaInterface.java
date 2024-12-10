@@ -56,5 +56,5 @@ public interface RubricaInterface {
      *
      * @param[in] e Rubrica da ordinare.
      */
-    public void ordina(Rubrica e);
+    public void ordina();
 }
