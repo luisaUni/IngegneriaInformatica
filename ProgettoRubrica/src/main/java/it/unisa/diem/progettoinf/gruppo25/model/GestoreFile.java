@@ -37,7 +37,7 @@ public class GestoreFile {
      */
     public static Rubrica importaCSV() throws IOException {
       Rubrica r = new Rubrica();
-      try(BufferedReader br = new BufferedReader(new FileReader(file))){
+      try(BufferedReader br = new BufferedReader(new FileReader(FILE_DEFAULT))){
 
             if(br.readLine() == null){ // controlla se il file sia vuoto (riga nulla)
                 return r;
@@ -78,7 +78,7 @@ public class GestoreFile {
      * @throws IOException Se si verifica un errore durante l'accesso al file.
      */
     public static void scriviCSV(Contatto c) throws IOException {
-      try(PrintWriter pw= new PrintWriter(new BufferedWriter(new FileWriter(file)))){
+      try(PrintWriter pw= new PrintWriter(new BufferedWriter(new FileWriter(FILE_DEFAULT)))){
 
         pw.println("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3");
 
