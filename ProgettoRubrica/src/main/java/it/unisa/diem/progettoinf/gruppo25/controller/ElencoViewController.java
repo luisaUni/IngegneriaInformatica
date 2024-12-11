@@ -204,7 +204,17 @@ public class ElencoViewController implements Initializable {
         
    }  
     
-    
+    @FXML
+    public void aggiungiAiPreferiti(ActionEvent event) {
+    Contatto contattoSelezionato = tableElenco.getSelectionModel().getSelectedItem();
+
+    if (contattoSelezionato != null) {
+        contattoSelezionato.setPreferito(!contattoSelezionato.isPreferito());
+        tableElenco.refresh();
+    } else {
+        System.out.println("Nessun contatto selezionato.");
+    }
+}
     
     
 }
