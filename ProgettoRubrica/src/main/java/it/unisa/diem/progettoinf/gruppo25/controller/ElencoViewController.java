@@ -96,6 +96,32 @@ public class ElencoViewController implements Initializable {
         System.err.println("Errore nel cambio vista: " + e.getMessage());
     }
 }
+    
+    private void showContactDetails(Contatto contatto) {
+        if (contatto != null) {
+            // Mostra i dettagli del contatto
+            lblNome.setText(contatto.getNome());
+            lblCognome.setText(contatto.getCognome());
+            lblNumero1.setText(contatto.getNumero1());
+            lblNumero2.setText(contatto.getNumero2());
+            lblNumero3.setText(contatto.getNumero3());
+            lblEmail1.setText(contatto.getEmail1());
+            lblEmail2.setText(contatto.getEmail2());
+            lblEmail3.setText(contatto.getEmail3());
+            
+        } else {
+            // Cancella i dettagli se nessun contatto è selezionato
+            lblNome.setText("");
+            lblCognome.setText("");
+            lblNumero1.setText("");
+            lblNumero2.setText("");
+            lblNumero3.setText("");
+            lblEmail1.setText("");
+            lblEmail2.setText("");
+            lblEmail3.setText("");
+        }  
+    }
+    
     /**
      * Initializes the controller class.
      */

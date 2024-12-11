@@ -5,6 +5,7 @@
  */
 package it.unisa.diem.progettoinf.gruppo25.controller;
 
+import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -69,12 +70,17 @@ public class ContattoViewController implements Initializable {
     @FXML
     private Button btnAnnulla;
 
+    
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        
+    }   
+    
+    
     
 }
