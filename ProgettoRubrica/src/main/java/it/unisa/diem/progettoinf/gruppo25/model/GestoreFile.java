@@ -72,7 +72,7 @@ public class GestoreFile {
 
     /** @brief Legge il file CSV di default.
      *  
-     * Questo metodo sfrutta il metodo importa passandogli come 'filename' quello del file CSV di default.
+     * Questo metodo chiama il metodo importa passandogli come 'filename' quello del file CSV di default.
      * @return Lista di contatti letta dal file CSV.
      * @throws IOException Se si verifica un errore durante l'accesso al file.
      */
@@ -88,7 +88,7 @@ public class GestoreFile {
      * @pre La lista `rubrica` non deve essere nulla.
      * @post Se l'operazione ha successo, il file di default contiene i dati della lista `rubrica` in formato CSV.
      *
-     * @param[inout] filename Nome del file CSV in cui scrivere i dati.
+     * 
      * @param[in] rubrica Lista di contatti da salvare nel file CSV.
      * @throws IOException Se si verifica un errore durante l'accesso al file.
      */
