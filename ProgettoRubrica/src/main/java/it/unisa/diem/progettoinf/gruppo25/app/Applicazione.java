@@ -1,5 +1,9 @@
 package it.unisa.diem.progettoinf.gruppo25.app;
+import java.io.IOException;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
@@ -10,6 +14,7 @@ import javafx.stage.Stage;
  * Nel metodo main viene gestito il ciclo di vita dell'applicazione tramite il metodo start.
  */
 public class Applicazione extends Application {
+    private static Scene scene;
 
     /**
      * @param args the command line arguments
@@ -31,7 +36,18 @@ public class Applicazione extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+   
+        scene = new Scene(loadFXML("ElencoView"), 640, 480);
+    
+    }
+    
+    public static void setRoot(String fxml) throws IOException{
+        scene.setRoot(loadFXML(fxml));
+    }
+    
+    private static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(Applicazione.class.getResource(fxml + ".fxml"));
+        return fxmlLoader.load();
     }
 
 }
