@@ -30,6 +30,12 @@ public class Rubrica implements RubricaInterface{
      public Rubrica(){
         elenco= FXCollections.observableArrayList();
      }
+     
+     
+     
+     public List<Contatto> getContatti(){
+         return elenco;
+     }
 
 
     /**

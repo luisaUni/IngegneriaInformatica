@@ -7,9 +7,13 @@ package it.unisa.diem.progettoinf.gruppo25.controller;
 
 import it.unisa.diem.progettoinf.gruppo25.app.Applicazione;
 import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
+import it.unisa.diem.progettoinf.gruppo25.model.GestoreFile;
 import it.unisa.diem.progettoinf.gruppo25.model.Rubrica;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -18,7 +22,9 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -28,6 +34,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -213,6 +220,125 @@ public class ElencoViewController implements Initializable {
         tableElenco.refresh();
     } else {
         System.out.println("Nessun contatto selezionato.");
+    }
+}
+    
+        @FXML
+    private void handleDeletePerson() {
+        int selectedIndex =  tableElenco.getSelectionModel().getSelectedIndex();
+            
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Conferma eliminazione");
+            confirmationAlert.setHeaderText("Sei sicuro di voler eliminare il contatto?");
+            confirmationAlert.setContentText("Questa azione non può essere annullata.");
+            // Aggiungi i pulsanti "Conferma" e "Annulla"
+            ButtonType confirmButton = new ButtonType("Conferma", ButtonType.OK.getButtonData());
+            ButtonType cancelButton = new ButtonType("Annulla", ButtonType.CANCEL.getButtonData());
+            confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+            Optional<ButtonType> result = confirmationAlert.showAndWait();
+            if (result.isPresent() && result.get() == confirmButton) {
+                // Rimuovi il contatto se l'utente conferma
+                tableElenco.getItems().remove(selectedIndex);
+            }
+    }
+    
+    
+    
+    @FXML
+    private void handleImportCsv() {
+    // Crea un pop-up di scelta con due pulsanti
+        Alert choiceAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        choiceAlert.setTitle("Seleziona Modalità di Importazione");
+        choiceAlert.setHeaderText("Come desideri importare i contatti?");
+        choiceAlert.setContentText("Scegli una delle opzioni seguenti:");
+
+        ButtonType defaultButton = new ButtonType("Importa da file di Default");
+        ButtonType externalButton = new ButtonType("Importa da file Esterno");
+
+        choiceAlert.getButtonTypes().setAll(defaultButton, externalButton);
+
+        Optional<ButtonType> result = choiceAlert.showAndWait();
+        if (result.isPresent()) {
+            if (result.get() == defaultButton) {
+                // Importa da file di default (rubrica.csv)
+                importFromDefaultFile();
+            } else if (result.get() == externalButton) {
+                // Importa da file esterno scelto dall'utente
+                importFromExternalFile();
+            }
+             // Se l'utente sceglie "Annulla", non fare nulla
+        }else{
+             System.out.println("Nessuna opzione selezionata.");
+        }
+    }
+
+    private void importFromDefaultFile() {
+        try {
+            // Percorso del file di default
+            
+            Rubrica rubrica= GestoreFile.leggiCSV();
+
+            // Aggiungi i contatti alla tabella
+            tableElenco.getItems().addAll(rubrica.getContatti());
+        } catch (IOException e) {
+            showError("Errore durante l'importazione", "Non è stato possibile leggere il file di default.");
+            String defaultFile = "rubrica.csv";
+   
+        }
+    }
+
+    private void importFromExternalFile() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleziona un file CSV");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
+
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+             try {
+                 // Usa il metodo importa per caricare i dati
+                 Rubrica rubrica = GestoreFile.importa(file.getAbsolutePath());
+
+                // Aggiungi i contatti alla tabella
+                tableElenco.getItems().addAll(rubrica.getContatti());
+            } catch (IOException e) {
+            showError("Errore durante l'importazione", "Non è stato possibile leggere il file selezionato.");
+            }   
+       }
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null );
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+    
+    
+     @FXML
+    private void handleEsportaCsv() {
+    // Crea un pop-up per selezionare la posizione del file di esportazione
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
+    fileChooser.setTitle("Salva file CSV");
+
+    // Mostra la finestra di dialogo per salvare il file
+    File file = fileChooser.showSaveDialog(null);
+
+    if (file != null) {
+        try {
+            // Ottieni la rubrica dalla tabella (o dalla tua struttura di dati)
+            ArrayList<Contatto> rubrica = new ArrayList<>(tableElenco.getItems());
+
+            // Chiama il metodo esporta per scrivere i dati nel file
+            GestoreFile.esporta(file.getAbsolutePath(), rubrica);
+
+        } catch (IOException e) {
+            showError("Errore durante l'esportazione", "Non è stato possibile salvare il file CSV.");
+        } catch (IllegalArgumentException e) {
+            showError("Errore", e.getMessage());
+        }
     }
 }
     
