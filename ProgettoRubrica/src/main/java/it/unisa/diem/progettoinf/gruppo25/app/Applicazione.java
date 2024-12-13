@@ -1,4 +1,5 @@
 package it.unisa.diem.progettoinf.gruppo25.app;
+import it.unisa.diem.progettoinf.gruppo25.model.Rubrica;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,15 @@ import javafx.stage.Stage;
  */
 public class Applicazione extends Application {
     private static Scene scene;
+    public static  Rubrica rubricaCondivisa = new Rubrica();
+    
+    public static Rubrica getRubricaCondivisa() {
+        return rubricaCondivisa;
+    }
+
+    public static void setRubricaCondivisa(Rubrica rubrica) {
+       rubricaCondivisa=rubrica;
+    }
 
     /**
      * @param args the command line arguments

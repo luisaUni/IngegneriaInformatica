@@ -153,11 +153,7 @@ public class Contatto implements Comparable<Contatto>{
      * @param[in] numero1 Primo numero di telefono.
      */
     public void setNumero1(String numero1) {
-      if (numero1.equals(this.numero2) || numero1.equals(this.numero3)) {
-        throw new IllegalArgumentException("Numero già esistente.");
-    }
       this.numero1 = numero1;
-
     }
 
     /**
@@ -166,11 +162,7 @@ public class Contatto implements Comparable<Contatto>{
      * @param[in] numero2 Secondo numero di telefono.
      */
     public void setNumero2(String numero2) {
-      if (numero2.equals(this.numero1) || numero2.equals(this.numero3)) {
-        throw new IllegalArgumentException("Numero già esistente.");
-  }
       this.numero2 = numero2;
-
     }
 
     /**
@@ -179,11 +171,7 @@ public class Contatto implements Comparable<Contatto>{
      * @param[in] numero3 Terzo numero di telefono.
      */
     public void setNumero3(String numero3) {
-      if (numero3.equals(this.numero1) || numero3.equals(this.numero2)) {
-        throw new IllegalArgumentException("Numero già esistente.");
-   }
         this.numero3 = numero3;
-
     }
 
     /**
