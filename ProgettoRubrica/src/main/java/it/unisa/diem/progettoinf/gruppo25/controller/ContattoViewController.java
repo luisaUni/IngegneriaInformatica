@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -133,7 +134,7 @@ public class ContattoViewController implements Initializable {
     }   
     
     @FXML
-    private void switchToPrimary(ActionEvent event) {
+    private void switchToPrimary() {
       try {
         Applicazione.setRoot("ElencoView");
     } catch (IOException e) {
@@ -145,36 +146,162 @@ public class ContattoViewController implements Initializable {
     private void aggiungiNum(ActionEvent event) {
     int count = containerNum.getChildren().size();
 
-    if (count >= 3) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Limite superato");
-        alert.setHeaderText("Non puoi aggiungere altri campi");
-        alert.setContentText("È consentito un massimo di 3 numeri di telefono.");
-        alert.showAndWait();
-    } else {
-        TextField nuovoTextField = new TextField();
-        nuovoTextField.setPromptText("Aggiungi numero");
-        containerNum.getChildren().add(nuovoTextField);
-    }
+        if (count >= 3) {
+            showError("Limite superato", "È consentito un massimo di 3 numeri di telefono");  
+        } else {
+            TextField nuovoTextField = new TextField();
+            nuovoTextField.setPromptText("Aggiungi numero");
+            containerNum.getChildren().add(nuovoTextField);
+        }
     }
     
     @FXML
     private void aggiungiEmail(ActionEvent event) {
-    
-      int count= containerEmail.getChildren().size();
+    int count= containerEmail.getChildren().size();
       
-      if(count>=3){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Limite superato");
-        alert.setHeaderText("Non puoi aggiungere altri campi");
-        alert.setContentText("È consentito un massimo di 3 indirizzi e-mail.");
-        alert.showAndWait();
-      } else {
+        if(count>=3){
+            showError("Limite superato", "È consentito un massimo di 3 indirizzi email");
+        } else {
           TextField nuovoTextField = new TextField();
           nuovoTextField.setPromptText("Aggiungi email");
           containerEmail.getChildren().add(nuovoTextField);
-      }
+        }
     }
     
+     private void showError(String title, String message){
+        System.out.println("Mostro alert con messaggio: " + message);
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null );
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+     
+    @FXML
+    public void aggiungiContatto(){
+        if(isInputValid()){
+            
+            contatto.setNome(txtNome.getText());
+            contatto.setCognome(txtCognome.getText());
+            contatto.setNumero1(textNumero.getText());
+            contatto.setEmail1(textEmail.getText());
+            aggiornaNumeri(contatto);
+            aggiornaEmail(contatto);
+            if (isNuovoContatto) {
+                //App.getContatti().add(contatto);
+                Applicazione.getRubricaCondivisa().aggiungiContatto(contatto);
+            }
+            switchToPrimary();
+        }
+        
+    }
+    
+        private boolean isInputValid() {
+
+        StringBuilder Error= new StringBuilder("");
+        if(((txtNome.getText()== null) || txtNome.getText().length() == 0)&&((txtCognome.getText()== null) || txtCognome.getText().length() == 0)) {
+            Error.append("Campo nome e cognome contemporanemente vuoti");
+        }
+        if((!textNumero.getText().isEmpty())&&(!textNumero.getText().matches("\\d+"))){
+            Error.append("numero di telefono non valido");
+        }
+        if ((!textEmail.getText().isEmpty()) && (!textEmail.getText().matches("[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"))) {
+            Error.append("\"Email non valida.\\n\"");
+        }
+        int numCount = 1;
+        for (Node node : containerNum.getChildren()) {
+            if (node instanceof TextField) {
+                String numero = ((TextField) node).getText().trim();
+                if (!numero.isEmpty() && !numero.matches("\\d+")) {
+                    Error.append( "Numero aggiuntivo " + numCount + " non valido: " + numero + ".\n");
+                }
+                
+                numCount++;
+            }
+        }
+        int emailCount = 1;
+        for (Node node : containerEmail.getChildren()) {
+            if (node instanceof TextField) {
+                String email = ((TextField) node).getText();
+                if ((!email.isEmpty()) && (!email.matches("[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}"))) {
+                    Error.append( " \n Email aggiuntiva  " + emailCount + " non valida: " + email + ".\n");
+                }
+                emailCount++;
+            }
+        }
+        if (Error.length() > 0) {
+            showError("Errore", Error.toString());
+            return false; 
+        } 
+        return true;
+
+    }
+          
+    private void aggiornaNumeri(Contatto contatto){
+        int numCount = 1;
+        for (Node node : containerNum.getChildren()) {
+            if (node instanceof TextField) {
+                String numero = ((TextField) node).getText();
+                if (numCount == 2) {
+                    if (numero.isEmpty() && contatto.getNumero2() != null) {
+                        contatto.setNumero2(null);
+                    } else if (!numero.isEmpty()) {
+                        contatto.setNumero2(numero);
+                    }
+                } else if (numCount == 3) {
+                    if (numero.isEmpty() && contatto.getNumero3() != null) {
+                        contatto.setNumero3(null);
+                    } else if (!numero.isEmpty()) {
+                        contatto.setNumero3(numero);
+                    }
+            }
+
+                    numCount++;
+                }
+            }
+        }
+    
+    
+     private void aggiornaEmail(Contatto contatto){
+        int emailCount = 1;
+        for (Node node : containerEmail.getChildren()) {
+            if (node instanceof TextField) {
+                String email = ((TextField) node).getText();
+                if (emailCount == 2) {
+                if (email.isEmpty() && contatto.getEmail2() != null) {
+                    contatto.setEmail2(null);
+                } else if (!email.isEmpty()) {
+                    contatto.setEmail2(email);
+                }
+            } else if (emailCount == 3) {
+                if (email.isEmpty() && contatto.getEmail3() != null) {
+                    contatto.setEmail3(null);
+                } else if (!email.isEmpty()) {
+                    contatto.setEmail3(email);
+                }
+            }
+
+            emailCount++;
+                
+            }
+        }
+    }
+     
+      
+    @FXML
+    public void SalvaModifiche(){
+        if (isInputValid()) {
+        
+            contatto.setNome(txtNome.getText());
+            contatto.setCognome(txtCognome.getText());
+            contatto.setNumero1(textNumero.getText());
+            contatto.setEmail1(textEmail.getText());
+
+            aggiornaNumeri(contatto);
+            aggiornaEmail(contatto);
+            switchToPrimary();
+        }
+        
+    }
     
 }
