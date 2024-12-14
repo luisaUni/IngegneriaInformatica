@@ -245,6 +245,7 @@ public class ElencoViewController implements Initializable {
             List<Contatto> contattiImportati =rubrica2.getContatti();
           
             if (contattiImportati != null && !contattiImportati.isEmpty()) {
+                rubrica.getContatti().clear();
                 rubrica.getContatti().addAll(contattiImportati);
                 ObservableList<Contatto> contattiObservable = FXCollections.observableArrayList(rubrica.getContatti());
                 filteredList = new FilteredList<>(contattiObservable, p -> true);
@@ -332,11 +333,23 @@ public class ElencoViewController implements Initializable {
                 return matchNome || matchCognome;
             });
         }
-
+        ordinaTabella();
     }
     
+    private void ordinaTabella() {
+        ObservableList<Contatto> contattiOrdinati = FXCollections.observableArrayList(filteredList);
+        FXCollections.sort(contattiOrdinati, rubrica.getComparator());
+        filteredList.setAll(contattiOrdinati);
+        tableElenco.refresh();           
+    }
     
-
-    
-    
+    @FXML
+    public void aggiungiAiPreferiti(ActionEvent event) {
+        Contatto contattoSelezionato = tableElenco.getSelectionModel().getSelectedItem();
+        contattoSelezionato.setPreferito(!contattoSelezionato.isPreferito());
+        tableElenco.refresh();
+        String stato = contattoSelezionato.isPreferito() ? "aggiunto ai preferiti" : "rimosso dai preferiti";
+        System.out.println("Contatto " + stato + ": " + contattoSelezionato.getNome());
+    }
+  
 }
