@@ -225,11 +225,7 @@ public class ElencoViewController implements Initializable {
     }
     
     
-    
- 
-    
-    
-
+   
     @FXML
     public void handleImportCsv() {
         FileChooser fileChooser = new FileChooser();
@@ -285,8 +281,8 @@ public class ElencoViewController implements Initializable {
     }
     
     @FXML
-    public void creaNuovoContatto() {
-        switchToSecondaryView(null); // Passa null per la creazione
+    public void creaNuovoContatto(ActionEvent e) {
+       switchToSecondaryView(null); // Passa null per la creazione
     }
 
      
@@ -306,7 +302,7 @@ public class ElencoViewController implements Initializable {
         }
         try {
 
-            Applicazione.setRoot("secondary");
+            Applicazione.setRoot("ContattoView");
         } catch (IOException e) {
             System.err.println("Errore nel cambio vista: " + e.getMessage());
         }

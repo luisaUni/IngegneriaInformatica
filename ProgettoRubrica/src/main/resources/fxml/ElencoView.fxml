@@ -49,7 +49,7 @@
                                     <children>
                                         <ImageView fx:id="imgLente" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../../img/lente.png" />
+                                                <Image url="@../img/lente.png" />
                                             </image>
                                         </ImageView>
                                         <TextField fx:id="fieldCerca" prefHeight="27.0" promptText="Cerca contatto" HBox.hgrow="ALWAYS" />

@@ -92,7 +92,7 @@ public class ContattoViewController implements Initializable {
     @FXML
     private void vaiAllElenco(ActionEvent e){
     try {
-        Applicazione.setRoot("primary");
+        Applicazione.setRoot("ElencoView");
     }catch(IOException ex){
         System.err.println("Errore nel cambio vista: " + ex.getMessage());  
     }

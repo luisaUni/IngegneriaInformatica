@@ -133,8 +133,4 @@ public class Rubrica implements RubricaInterface{
        return sb.toString();
     }
     
-    public Comparator<Contatto> getComparator() {
-        return Comparator.comparing(Contatto::getCognome).thenComparing(Contatto::getNome);
-    }
-
 }

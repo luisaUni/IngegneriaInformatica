@@ -19,6 +19,7 @@ import javafx.stage.Stage;
  */
 public class Applicazione extends Application {
     private static Scene scene;
+    private static Stage stage;
     public static  Rubrica rubricaCondivisa = new Rubrica();
     
     public static Rubrica getRubricaCondivisa() {
@@ -55,20 +56,19 @@ public class Applicazione extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("ElencoView"), 640, 480);
         stage.setScene(scene);
         stage.show();
-        
-    
     }
     
     public static void setRoot(String fxml) throws IOException{
         scene.setRoot(loadFXML(fxml));
+        
     }
     
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Applicazione.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+       FXMLLoader fxmlLoader = new FXMLLoader(Applicazione.class.getResource("/fxml/" + fxml + ".fxml"));
+       return fxmlLoader.load(); 
     }
 
 }
