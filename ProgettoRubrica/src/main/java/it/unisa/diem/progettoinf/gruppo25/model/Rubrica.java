@@ -1,6 +1,7 @@
 
 package it.unisa.diem.progettoinf.gruppo25.model;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,7 +20,7 @@ import javafx.collections.ObservableList;
  */
 public class Rubrica implements RubricaInterface{
 
-     private ObservableList<Contatto> elenco;
+     private List<Contatto> elenco;
 
     /**
      * @brief Costruttore di default della classe `Rubrica`.
@@ -30,7 +31,10 @@ public class Rubrica implements RubricaInterface{
      public Rubrica(){
         elenco= FXCollections.observableArrayList();
      }
-     
+    
+     public Rubrica(List<Contatto> contatti) {
+        this.elenco = contatti;
+    }
      
      
      public List<Contatto> getContatti(){
@@ -110,7 +114,9 @@ public class Rubrica implements RubricaInterface{
         elenco.sort(null);
      }
 
-
+    public Comparator<Contatto> getComparator() {
+        return Comparator.comparing(Contatto::getCognome).thenComparing(Contatto::getNome);
+    }
 
     /**
      * @brief Restituisce una rappresentazione testuale della rubrica.

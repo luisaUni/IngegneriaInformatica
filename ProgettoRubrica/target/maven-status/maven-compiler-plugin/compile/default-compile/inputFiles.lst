@@ -1,9 +1,7 @@
 /Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/model/RubricaInterface.java
 /Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/model/Contatto.java
-/Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/view/ContattoView.java
-/Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/controller/ContattoController.java
 /Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/model/GestoreFile.java
-/Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/controller/ElencoController.java
-/Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/view/ElencoView.java
+/Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/controller/ContattoViewController.java
+/Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/controller/ElencoViewController.java
 /Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/model/Rubrica.java
 /Users/luisacrivo/Desktop/progettoGruppo25/ProgettoRubrica/src/main/java/it/unisa/diem/progettoinf/gruppo25/app/Applicazione.java

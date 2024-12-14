@@ -6,18 +6,20 @@
 package it.unisa.diem.progettoinf.gruppo25.controller;
 
 import it.unisa.diem.progettoinf.gruppo25.app.Applicazione;
-import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
-import it.unisa.diem.progettoinf.gruppo25.model.GestoreFile;
-import it.unisa.diem.progettoinf.gruppo25.model.Rubrica;
+import it.unisa.diem.progettoinf.gruppo25.controller.ContattoViewController;
+import it.unisa.diem.progettoinf.gruppo25.model.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -93,82 +95,49 @@ public class ElencoViewController implements Initializable {
     @FXML
     private Button btnElimina;
     
-    private Rubrica contatti;
-
-    @FXML
-    private void switchToContattoView() {
-    try {
-        Applicazione.setRoot("ContattoView");
-    } catch (IOException e) {
-        System.err.println("Errore nel cambio vista: " + e.getMessage());
-    }
-}
+    private Rubrica rubrica;
+    private ObservableList<Contatto> contatti;
+    private FilteredList<Contatto> filteredList; 
     
-    private void showContactDetails(Contatto contatto) {
-        if (contatto != null) {
-            // Mostra i dettagli del contatto
-            lblNome.setText(contatto.getNome());
-            lblCognome.setText(contatto.getCognome());
-            lblNumero1.setText(contatto.getNumero1());
-            lblNumero2.setText(contatto.getNumero2());
-            lblNumero3.setText(contatto.getNumero3());
-            lblEmail1.setText(contatto.getEmail1());
-            lblEmail2.setText(contatto.getEmail2());
-            lblEmail3.setText(contatto.getEmail3());
-            
-        } else {
-            // Cancella i dettagli se nessun contatto è selezionato
-            lblNome.setText("");
-            lblCognome.setText("");
-            lblNumero1.setText("");
-            lblNumero2.setText("");
-            lblNumero3.setText("");
-            lblEmail1.setText("");
-            lblEmail2.setText("");
-            lblEmail3.setText("");
-        }  
-    }
+    
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         
-        // contatti = FXCollections.observableArrayList();
-        contatti = new Rubrica();
-        
+        rubrica = Applicazione.getRubricaCondivisa(); 
+        rubrica.ordina();
+        ObservableList<Contatto> contattiCondivisi = FXCollections.observableArrayList(rubrica.getContatti());
+        filteredList = new FilteredList<>(contattiCondivisi, p -> true);
         colonnaNome.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getNome()));
         colonnaCognome.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getCognome()));
         colonnaPreferiti.setCellValueFactory(c -> {
-        if (c.getValue() != null) {
-        boolean isPreferito = c.getValue().isPreferito();
-        return new SimpleStringProperty(isPreferito ? "⭐" : "");
-        }
-        return new SimpleStringProperty(""); // Gestione in caso di valore nullo
-   
-       });
-        
+            if (c.getValue() != null) {
+                boolean isPreferito = c.getValue().isPreferito();
+                return new SimpleStringProperty(isPreferito ? "★" : "");
+            }
+            return new SimpleStringProperty(""); 
+        });
+        tableElenco.setItems(filteredList);
         latoDestro.setVisible(false);
-        
-        btnImporta.setOnAction(event -> {
-            System.out.println("Importa cliccato!");
-        });
-
-        btnEsporta.setOnAction(event -> {
-            System.out.println("Esporta cliccato!");
-        });
-
-         btnCrea.setOnAction(event -> {
-            System.out.println("Crea cliccato!");
-            switchToContattoView();
-        });
-         
+        fieldCerca.textProperty().addListener((observable, oldValue, newValue) -> filtraContatti(newValue));   
         tableElenco.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {  
         if (newSelection != null) {
             latoDestro.setVisible(true);
-
+            if (newSelection.getNome() != null) {
+                lblNome.setText(newSelection.getNome());
+            } else {
+                lblNome.setText("");
+            }
+            
+            if (newSelection.getCognome() != null) {
+                lblCognome.setText(newSelection.getCognome());
+            } else {
+                lblCognome.setText("");
+            }
+            
             if (newSelection.getEmail1() != null) {
                 lblEmail1.setText(newSelection.getEmail1());
             } else {
@@ -207,106 +176,142 @@ public class ElencoViewController implements Initializable {
         } else {
             latoDestro.setVisible(false);
         }
-    });
-        
-   }  
+        });
+   } 
+    
+    private void showContactDetails(Contatto contatto) {
+        if (contatto != null) {
+            lblNome.setText(contatto.getNome());
+            lblCognome.setText(contatto.getCognome());
+            lblNumero1.setText(contatto.getNumero1());
+            lblNumero2.setText(contatto.getNumero2());
+            lblNumero3.setText(contatto.getNumero3());
+            lblEmail1.setText(contatto.getEmail1());
+            lblEmail2.setText(contatto.getEmail2());
+            lblEmail3.setText(contatto.getEmail3());
+            
+        } else {
+            lblNome.setText("");
+            lblCognome.setText("");
+            lblNumero1.setText("");
+            lblNumero2.setText("");
+            lblNumero3.setText("");
+            lblEmail1.setText("");
+            lblEmail2.setText("");
+            lblEmail3.setText("");
+        }  
+    }
+    
+    
     
     @FXML
-    public void aggiungiAiPreferiti(ActionEvent event) {
-    Contatto contattoSelezionato = tableElenco.getSelectionModel().getSelectedItem();
-
-    if (contattoSelezionato != null) {
-        contattoSelezionato.setPreferito(!contattoSelezionato.isPreferito());
-        tableElenco.refresh();
-    } else {
-        System.out.println("Nessun contatto selezionato.");
-    }
-}
-    
-        @FXML
-    private void handleDeletePerson() {
+    public void handleDeletePerson() {
         int selectedIndex =  tableElenco.getSelectionModel().getSelectedIndex();
-            
-            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setTitle("Conferma eliminazione");
-            confirmationAlert.setHeaderText("Sei sicuro di voler eliminare il contatto?");
-            confirmationAlert.setContentText("Questa azione non può essere annullata.");
-            // Aggiungi i pulsanti "Conferma" e "Annulla"
-            ButtonType confirmButton = new ButtonType("Conferma", ButtonType.OK.getButtonData());
-            ButtonType cancelButton = new ButtonType("Annulla", ButtonType.CANCEL.getButtonData());
-            confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+        
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Conferma eliminazione");
+        confirmationAlert.setHeaderText("Sei sicuro di voler eliminare il contatto?");
+        confirmationAlert.setContentText("Questa azione non può essere annullata.");
 
-            Optional<ButtonType> result = confirmationAlert.showAndWait();
-            if (result.isPresent() && result.get() == confirmButton) {
-                // Rimuovi il contatto se l'utente conferma
-                tableElenco.getItems().remove(selectedIndex);
-            }
+        ButtonType confirmButton = new ButtonType("Conferma", ButtonType.OK.getButtonData());
+        ButtonType cancelButton = new ButtonType("Annulla", ButtonType.CANCEL.getButtonData());
+        confirmationAlert.getButtonTypes().setAll(confirmButton, cancelButton);
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+        if (result.isPresent() && result.get() == confirmButton) {
+            filteredList.getSource().remove(selectedIndex);
+            tableElenco.refresh();
+        }
     }
     
     
     
+ 
+    
+    
+
     @FXML
-    private void handleImportCsv() {
-    // Crea un pop-up di scelta con due pulsanti
-        Alert choiceAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        choiceAlert.setTitle("Seleziona Modalità di Importazione");
-        choiceAlert.setHeaderText("Come desideri importare i contatti?");
-        choiceAlert.setContentText("Scegli una delle opzioni seguenti:");
-
-        ButtonType defaultButton = new ButtonType("Importa da file di Default");
-        ButtonType externalButton = new ButtonType("Importa da file Esterno");
-
-        choiceAlert.getButtonTypes().setAll(defaultButton, externalButton);
-
-        Optional<ButtonType> result = choiceAlert.showAndWait();
-        if (result.isPresent()) {
-            if (result.get() == defaultButton) {
-                // Importa da file di default (rubrica.csv)
-                importFromDefaultFile();
-            } else if (result.get() == externalButton) {
-                // Importa da file esterno scelto dall'utente
-                importFromExternalFile();
-            }
-             // Se l'utente sceglie "Annulla", non fare nulla
-        }else{
-             System.out.println("Nessuna opzione selezionata.");
-        }
-    }
-
-    private void importFromDefaultFile() {
-        try {
-            // Percorso del file di default
-            
-            Rubrica rubrica= GestoreFile.leggiCSV();
-
-            // Aggiungi i contatti alla tabella
-            tableElenco.getItems().addAll(rubrica.getContatti());
-        } catch (IOException e) {
-            showError("Errore durante l'importazione", "Non è stato possibile leggere il file di default.");
-            String defaultFile = "rubrica.csv";
-   
-        }
-    }
-
-    private void importFromExternalFile() {
+    public void handleImportCsv() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Seleziona un file CSV");
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
 
         File file = fileChooser.showOpenDialog(null);
         if (file != null) {
-             try {
-                 // Usa il metodo importa per caricare i dati
-                 Rubrica rubrica = GestoreFile.importa(file.getAbsolutePath());
-
-                // Aggiungi i contatti alla tabella
-                tableElenco.getItems().addAll(rubrica.getContatti());
-            } catch (IOException e) {
+          try {
+            GestoreFile gestoreFile = new GestoreFile();
+            
+            Rubrica rubrica2 = gestoreFile.importa(file.getAbsolutePath());
+            List<Contatto> contattiImportati =rubrica2.getContatti();
+          
+            if (contattiImportati != null && !contattiImportati.isEmpty()) {
+                rubrica.getContatti().clear();
+                rubrica.getContatti().addAll(contattiImportati);
+                ObservableList<Contatto> contattiObservable = FXCollections.observableArrayList(rubrica.getContatti());
+                filteredList = new FilteredList<>(contattiObservable, p -> true);
+                tableElenco.setItems(filteredList);
+                Alert confirmationAlert = new Alert(Alert.AlertType.INFORMATION);
+                confirmationAlert.setTitle("Importazione completata");
+                confirmationAlert.setHeaderText("Contatti importati correttamente");
+                confirmationAlert.setContentText("Totale contatti importati: " + contattiImportati.size());
+                confirmationAlert.showAndWait();
+            } else {
+                showError("Errore durante l'importazione", "Il file CSV non contiene contatti validi.");
+            }
+        } catch (IOException e) {
             showError("Errore durante l'importazione", "Non è stato possibile leggere il file selezionato.");
-            }   
-       }
+        } catch (Exception e) {
+            showError("Errore imprevisto", "Si è verificato un errore: " + e.getMessage());
+        }
+       }       
     }
 
+    @FXML
+    public void handleEsportaCsv() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
+        fileChooser.setTitle("Salva file CSV");
+        File file = fileChooser.showSaveDialog(null);
+        if (file != null) {
+            try {
+                ArrayList<Contatto> rubrica2 = new ArrayList<>(tableElenco.getItems());
+                GestoreFile.esporta(file.getAbsolutePath(), rubrica2);
+            } catch (IOException e) {
+                showError("Errore durante l'esportazione", "Non è stato possibile salvare il file CSV.");
+            } catch (IllegalArgumentException e) {
+                showError("Errore", e.getMessage());
+            }
+        }
+    }
+    
+    @FXML
+    public void creaNuovoContatto() {
+        switchToSecondaryView(null); // Passa null per la creazione
+    }
+
+     
+    @FXML
+    public void modificaContatto() {
+        Contatto contattoSelezionato = tableElenco.getSelectionModel().getSelectedItem();
+        switchToSecondaryView(contattoSelezionato);
+    }
+    
+    public void switchToSecondaryView(Contatto contatto) {
+        if (contatto == null) {
+        ContattoViewController.setNuovoContatto(true);
+        ContattoViewController.setContattoSelezionato(null);
+        } else {
+            ContattoViewController.setNuovoContatto(false);
+            ContattoViewController.setContattoSelezionato(contatto);
+        }
+        try {
+
+            Applicazione.setRoot("secondary");
+        } catch (IOException e) {
+            System.err.println("Errore nel cambio vista: " + e.getMessage());
+        }
+    }
+    
     private void showError(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
@@ -316,31 +321,35 @@ public class ElencoViewController implements Initializable {
     }
     
     
-     @FXML
-    private void handleEsportaCsv() {
-    // Crea un pop-up per selezionare la posizione del file di esportazione
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("File CSV", "*.csv"));
-    fileChooser.setTitle("Salva file CSV");
+    private void filtraContatti(String criterio) {
+        if (criterio == null || criterio.isEmpty()) {
+            filteredList.setPredicate(contatto -> true);
+        } else {
+            String filtroLowerCase = criterio.toLowerCase();
 
-    // Mostra la finestra di dialogo per salvare il file
-    File file = fileChooser.showSaveDialog(null);
-
-    if (file != null) {
-        try {
-            // Ottieni la rubrica dalla tabella (o dalla tua struttura di dati)
-            ArrayList<Contatto> rubrica = new ArrayList<>(tableElenco.getItems());
-
-            // Chiama il metodo esporta per scrivere i dati nel file
-            GestoreFile.esporta(file.getAbsolutePath(), rubrica);
-
-        } catch (IOException e) {
-            showError("Errore durante l'esportazione", "Non è stato possibile salvare il file CSV.");
-        } catch (IllegalArgumentException e) {
-            showError("Errore", e.getMessage());
+            filteredList.setPredicate(contatto -> {
+                boolean matchNome = contatto.getNome() != null && contatto.getNome().toLowerCase().startsWith(filtroLowerCase);
+                boolean matchCognome = contatto.getCognome() != null && contatto.getCognome().toLowerCase().startsWith(filtroLowerCase);
+                return matchNome || matchCognome;
+            });
         }
+        ordinaTabella();
     }
-}
     
+    private void ordinaTabella() {
+        ObservableList<Contatto> contattiOrdinati = FXCollections.observableArrayList(filteredList);
+        FXCollections.sort(contattiOrdinati, rubrica.getComparator());
+        filteredList.setAll(contattiOrdinati);
+        tableElenco.refresh();           
+    }
     
+    @FXML
+    public void aggiungiAiPreferiti(ActionEvent event) {
+        Contatto contattoSelezionato = tableElenco.getSelectionModel().getSelectedItem();
+        contattoSelezionato.setPreferito(!contattoSelezionato.isPreferito());
+        tableElenco.refresh();
+        String stato = contattoSelezionato.isPreferito() ? "aggiunto ai preferiti" : "rimosso dai preferiti";
+        System.out.println("Contatto " + stato + ": " + contattoSelezionato.getNome());
+    }
+  
 }

@@ -1,7 +1,10 @@
 package it.unisa.diem.progettoinf.gruppo25.app;
+import it.unisa.diem.progettoinf.gruppo25.model.Contatto;
 import it.unisa.diem.progettoinf.gruppo25.model.Rubrica;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -25,13 +28,19 @@ public class Applicazione extends Application {
     public static void setRubricaCondivisa(Rubrica rubrica) {
        rubricaCondivisa=rubrica;
     }
+    
+    public static final ObservableList <Contatto> contatti= FXCollections.observableArrayList();
+    
+    public static ObservableList <Contatto> getContatti(){
+        return contatti;
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-
-        // TODO code application logic here
+        launch();
+        
     }
 
     /**
@@ -45,9 +54,11 @@ public class Applicazione extends Application {
      * @throws Exception Se si verifica un errore durante l'inizializzazione dell'interfaccia grafica.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
-   
-        scene = new Scene(loadFXML("ElencoView"), 640, 480);
+    public void start(Stage stage) throws Exception {
+        scene = new Scene(loadFXML("primary"), 640, 480);
+        stage.setScene(scene);
+        stage.show();
+        
     
     }
     
