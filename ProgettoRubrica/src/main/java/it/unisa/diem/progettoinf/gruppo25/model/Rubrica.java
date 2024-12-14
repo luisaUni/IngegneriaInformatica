@@ -20,7 +20,7 @@ import javafx.collections.ObservableList;
  */
 public class Rubrica implements RubricaInterface{
 
-     private ObservableList<Contatto> elenco;
+     private List<Contatto> elenco;
 
     /**
      * @brief Costruttore di default della classe `Rubrica`.
@@ -31,7 +31,10 @@ public class Rubrica implements RubricaInterface{
      public Rubrica(){
         elenco= FXCollections.observableArrayList();
      }
-     
+    
+     public Rubrica(List<Contatto> contatti) {
+        this.elenco = contatti;
+    }
      
      
      public List<Contatto> getContatti(){
