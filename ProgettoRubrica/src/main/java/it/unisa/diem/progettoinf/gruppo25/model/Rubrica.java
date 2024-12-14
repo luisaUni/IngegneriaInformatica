@@ -1,6 +1,7 @@
 
 package it.unisa.diem.progettoinf.gruppo25.model;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -69,9 +70,7 @@ public class Rubrica implements RubricaInterface{
      */
      @Override
      public void eliminaContatto(Contatto c){
-        if(elenco.remove(c)){
-
-        }
+        if(elenco.remove(c));
      }
 
     /**
@@ -127,6 +126,10 @@ public class Rubrica implements RubricaInterface{
            sb.append(contatto.toString()).append("\n");
        }
        return sb.toString();
+    }
+    
+    public Comparator<Contatto> getComparator() {
+        return Comparator.comparing(Contatto::getCognome).thenComparing(Contatto::getNome);
     }
 
 }

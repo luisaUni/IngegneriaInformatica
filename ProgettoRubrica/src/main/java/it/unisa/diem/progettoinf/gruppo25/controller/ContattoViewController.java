@@ -89,6 +89,14 @@ public class ContattoViewController implements Initializable {
         isNuovoContatto = nuovo;
     }
 
+    @FXML
+    private void vaiAllElenco(ActionEvent e){
+    try {
+        Applicazione.setRoot("primary");
+    }catch(IOException ex){
+        System.err.println("Errore nel cambio vista: " + ex.getMessage());  
+    }
+    }
     /**
      * Initializes the controller class.
      */
