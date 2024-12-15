@@ -54,8 +54,12 @@ public class RubricaTest {
         // Operazioni post-test, come la rimozione di contatti o il reset della rubrica
         rubrica = null;  
     }
-
-@Test
+    
+    /**
+     * Test per verificare l'aggiunta di contatti alla rubrica.
+     */
+    
+    @Test
     public void testAggiungiContatto() {
         Contatto contatto = new Contatto("Mario", "Rossi", "1234567890", "", "", "mario.rossi@example.com", "", "", true);
         rubrica.aggiungiContatto(contatto);

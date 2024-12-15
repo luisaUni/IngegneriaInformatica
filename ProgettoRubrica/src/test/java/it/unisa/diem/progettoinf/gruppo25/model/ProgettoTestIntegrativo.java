@@ -57,7 +57,7 @@ public class ProgettoTestIntegrativo {
         Contatto nuovoContatto = new Contatto("Giulia", "Verdi", "111222333", "", "", "", "", "", true);
         rubrica.aggiungiContatto(nuovoContatto);
         assertEquals(3, rubrica.getContatti().size(), "La rubrica deve contenere 3 contatti dopo l'aggiunta.");
-
+        
         // 3. Esporta i dati in un nuovo file
         gestoreFile.esporta(outputFile.getAbsolutePath(), (ArrayList<Contatto>) rubrica.getContatti());
 
@@ -75,5 +75,16 @@ public class ProgettoTestIntegrativo {
             String terzaRiga = reader.readLine();
             assertEquals("Giulia;Verdi;111222333;;;;;;", terzaRiga, "Il terzo contatto non è corretto.");
         }
+    }
+    
+    @Test
+    void testGestioneContattiMolti() throws IOException {
+        // Aggiungi 10000 contatti alla rubrica
+        for (int i = 0; i < 1000; i++) {
+            rubrica.aggiungiContatto(new Contatto("Nome" + i, "Cognome" + i, "123456789" + i, "", "", "", "", "", true));
+        }
+
+        // Verifica che la rubrica contenga 10000 contatti
+        assertEquals(1000, rubrica.getContatti().size(), "La rubrica deve contenere 1000 contatti.");
     }
 }
