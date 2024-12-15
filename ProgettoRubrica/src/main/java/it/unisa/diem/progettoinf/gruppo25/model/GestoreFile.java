@@ -148,6 +148,7 @@ public class GestoreFile {
           }else{
               pw.print("");
           }
+          pw.append(";");
             pw.append("\n");
         }
       }
