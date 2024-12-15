@@ -5,6 +5,8 @@
  */
 package it.unisa.diem.progettoinf.gruppo25.model;
 
+import java.util.Objects;
+
 /**
  * @class Contatto
  *
@@ -33,16 +35,18 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Costruttore della classe `Contatto`.
      *
-     * @param[in] nome Nome del contatto.
-     * @param[in] cognome Cognome del contatto.
-     * @param[in] numero1 Primo numero di telefono.
-     * @param[in] numero2 Secondo numero di telefono.
-     * @param[in] numero3 Terzo numero di telefono.
-     * @param[in] email1 Prima email del contatto.
-     * @param[in] email2 Seconda email del contatto.
-     * @param[in] email3 Terza email del contatto.
+     *
+     * @param nome Nome del contatto.
+     * @param cognome Cognome del contatto.
+     * @param numero1 Primo numero di telefono.
+     * @param numero2 Secondo numero di telefono.
+     * @param numero3 Terzo numero di telefono.
+     * @param email1 Prima email del contatto.
+     * @param email2 Seconda email del contatto.
+     * @param email3 Terza email del contatto.
+     * @param preferito Indica se il contatto è preferito.
      */
-    public Contatto(String nome, String cognome, String numero1, String numero2, String numero3, String email1, String email2, String email3) {
+    public Contatto(String nome, String cognome, String numero1, String numero2, String numero3, String email1, String email2, String email3, boolean preferito) {
         this.nome = nome;
         this.cognome = cognome;
         this.numero1 = numero1;
@@ -51,8 +55,12 @@ public class Contatto implements Comparable<Contatto>{
         this.email1 = email1;
         this.email2 = email2;
         this.email3 = email3;
+        this.preferito = preferito;
     }
 
+    /**
+     * @brief Costruttore vuoto della classe `Contatto`.
+     */
     public Contatto(){
       
     }
@@ -132,7 +140,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta il nome del contatto.
      *
-     *  @param[in] nome Nome del contatto.
+     *  @param nome Nome del contatto.
      */
     public void setNome(String nome) {
         this.nome = nome;
@@ -141,7 +149,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta il cognome del contatto.
      *
-     *  @param[in] cognome Cognome del contatto.
+     *  @param cognome Cognome del contatto.
      */
     public void setCognome(String cognome) {
         this.cognome = cognome;
@@ -150,7 +158,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta il primo numero di telefono del contatto.
      *
-     * @param[in] numero1 Primo numero di telefono.
+     * @param numero1 Primo numero di telefono.
      */
     public void setNumero1(String numero1) {
       this.numero1 = numero1;
@@ -159,7 +167,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta il secondo numero di telefono del contatto.
      *
-     * @param[in] numero2 Secondo numero di telefono.
+     * @param numero2 Secondo numero di telefono.
      */
     public void setNumero2(String numero2) {
       this.numero2 = numero2;
@@ -168,7 +176,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta il terzo numero di telefono del contatto.
      *
-     * @param[in] numero3 Terzo numero di telefono.
+     * @param numero3 Terzo numero di telefono.
      */
     public void setNumero3(String numero3) {
         this.numero3 = numero3;
@@ -177,7 +185,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta la prima email del contatto.
      *
-     * @param[in] email1 Prima email del contatto.
+     * @param email1 Prima email del contatto.
      */
     public void setEmail1(String email1) {
         this.email1 = email1;
@@ -186,7 +194,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta la seconda email del contatto.
      *
-     * @param[in] email2 Seconda email del contatto.
+     * @param email2 Seconda email del contatto.
      */
     public void setEmail2(String email2) {
         this.email2 = email2;
@@ -195,7 +203,7 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta la terza email del contatto.
      *
-     * @param[in] email3 Terza email del contatto.
+     * @param email3 Terza email del contatto.
      */
     public void setEmail3(String email3) {
         this.email3 = email3;
@@ -213,12 +221,18 @@ public class Contatto implements Comparable<Contatto>{
     /**
      * @brief Imposta lo stato di preferenza del contatto.
      *
-     * @param[in] preferito `true` se il contatto è preferito, `false` altrimenti.
+     * @param preferito `true` se il contatto è preferito, `false` altrimenti.
      */
     public void setPreferito(boolean preferito){
       this.preferito = preferito;
     }
 
+    /**
+     * @brief Confronta due oggetti `Contatto` per ordinarli alfabeticamente.
+     * 
+     * @param o L'altro contatto da confrontare.
+     * @return Un intero negativo, zero o positivo a seconda dell'ordine alfabetico.
+     */
     @Override
     public int compareTo(Contatto o) {
       int nameComparison = this.nome.compareToIgnoreCase(o.nome);
@@ -229,4 +243,29 @@ public class Contatto implements Comparable<Contatto>{
       return nameComparison;
 
     }
+    
+    /**
+     * @brief Verifica se due oggetti `Contatto` sono uguali.
+     * 
+     * @param o L'oggetto da confrontare.
+     * @return `true` se i contatti hanno lo stesso nome e cognome, `false` altrimenti.
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contatto contatto = (Contatto) o;
+        return Objects.equals(nome, contatto.nome) && 
+               Objects.equals(cognome, contatto.cognome);
+    }
+
+    /**
+     * @brief Genera un codice hash per il contatto basato su nome e cognome.
+     * @return Codice hash del contatto.
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome, cognome); 
+    }
+    
 }
