@@ -112,7 +112,7 @@ public class GestoreFileTest {
     }
     
     /**
-     * Test of esporta method, of class GestoreFile.
+     * Test del metodo esporta.
      */
     @Test
     public void testEsporta_Success() throws IOException {

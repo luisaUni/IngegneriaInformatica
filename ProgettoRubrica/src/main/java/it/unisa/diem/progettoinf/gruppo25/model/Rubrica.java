@@ -32,10 +32,26 @@ public class Rubrica implements RubricaInterface{
         elenco= FXCollections.observableArrayList();
      }
     
+     
+     /**
+     * @brief Costruttore  della classe `Rubrica`.
+     * 
+     * @param La lista di contatti 
+     *
+     * @post Crea un oggetto `Rubrica` attraverso la lista di contatti .
+     */
+    
      public Rubrica(List<Contatto> contatti) {
         this.elenco = contatti;
     }
      
+     /**
+     * @brief Restituisce la lista di contatti .
+     *  
+     *
+     * @return lista di contatti.
+     */
+    
      
      public List<Contatto> getContatti(){
          return elenco;
@@ -49,7 +65,7 @@ public class Rubrica implements RubricaInterface{
      *
      * @post Il contatto `c` viene aggiunto alla rubrica se non è già presente.
      *
-     * @param[in] c Contatto da aggiungere.
+     * @param c Contatto da aggiungere.
      */
      @Override
      public void aggiungiContatto(Contatto c) {
@@ -69,7 +85,7 @@ public class Rubrica implements RubricaInterface{
      * @pre Il contatto `c` deve esistere nella rubrica.
      * @post Il contatto `c` viene rimosso dalla rubrica.
      *
-     * @param[in] c Contatto da eliminare.
+     * @param c Contatto da eliminare.
      */
      @Override
      public void eliminaContatto(Contatto c){
@@ -81,7 +97,7 @@ public class Rubrica implements RubricaInterface{
     * @pre La stringa 's' non deve essere nulla e deve essere una stringa che verrà cercata tra gli attributi (nome,cognome) dei contatti.
     * @post Restituisce una lista di contatti che contengono la stringa 's' in uno dei loro attributi (nome, cognome).
     *
-    * @param[in] s La stringa da cercare.
+    * @param s La stringa da cercare.
     * @return Una lista di oggetti che contengono la stringa 's' nei loro attributi.
     */
 
@@ -104,14 +120,14 @@ public class Rubrica implements RubricaInterface{
      * @pre La rubrica non deve essere vuota.
      * @post I contatti nella rubrica sono ordinati secondo il criterio specificato.
      *
-     * @param[in] e Rubrica da ordinare.
      */
 
     @Override
      public void ordina(){
         elenco.sort(null);
      }
-
+     
+    
     public Comparator<Contatto> getComparator() {
         return Comparator.comparing(Contatto::getCognome).thenComparing(Contatto::getNome);
     }
@@ -119,7 +135,7 @@ public class Rubrica implements RubricaInterface{
     /**
      * @brief Restituisce una rappresentazione testuale della rubrica.
      *
-     * Questo metodo restituisce una stringa che rappresenta i contatti nella rubrica in formato leggibile.
+     * @post Questo metodo restituisce una stringa che rappresenta i contatti nella rubrica in formato leggibile.
      *
      * @return Stringa rappresentativa della rubrica.
      */
