@@ -28,8 +28,6 @@ public class GestoreFile {
     public GestoreFile(){
         
     }
-    
-
     /**
      * @brief Legge un file CSV e restituisce una lista di contatti.
      *
@@ -39,13 +37,11 @@ public class GestoreFile {
      * @pre Il file specificato da `filename` deve esistere e deve essere di tipo CVS.
      * @post Se l'operazione ha successo, viene restituita una lista di contatti non nulla.
      *
-     * @param[in] filename Nome del file CSV da leggere.
+     * @param filename Nome del file CSV da leggere.
      * @return Lista di contatti letta dal file CSV.
      * @throws IOException Se si verifica un errore durante l'accesso al file.
      */
-
-
-    public   Rubrica importa(String filename) throws IOException {
+    public Rubrica importa(String filename) throws IOException {
         if (filename == null) {
             throw new IllegalArgumentException("Il nome del file non può essere nullo.");
         }
@@ -87,7 +83,7 @@ public class GestoreFile {
     * @pre La lista `rubrica` non deve essere nulla.
     * @post Se l'operazione ha successo, il file 'filename' contiene i dati della lista `rubrica` in formato CSV.
     *
-    * @param[in] rubrica Lista di contatti da salvare nel file CSV.
+    * @param rubrica Lista di contatti da salvare nel file CSV.
     * @throws IOException Se si verifica un errore durante l'accesso al file.
     */
     public static void esporta(String filename, ArrayList<Contatto> rubrica) throws IOException{
@@ -97,7 +93,7 @@ public class GestoreFile {
         pw.println("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3");
 
         for(Contatto c : rubrica){
-
+            
           if(c.getNome() != null){
             pw.print(c.getNome());
           }else{
