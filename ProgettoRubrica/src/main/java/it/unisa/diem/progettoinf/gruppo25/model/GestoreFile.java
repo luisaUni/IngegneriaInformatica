@@ -90,7 +90,7 @@ public class GestoreFile {
      
       try(PrintWriter pw= new PrintWriter(new BufferedWriter(new FileWriter(filename)))){
 
-        pw.println("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3");
+        pw.println("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3;");
 
         for(Contatto c : rubrica){
             

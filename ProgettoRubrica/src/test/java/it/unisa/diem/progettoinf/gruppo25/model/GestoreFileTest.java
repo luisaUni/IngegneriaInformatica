@@ -155,7 +155,7 @@ public class GestoreFileTest {
         // Verifica che il file contenga solo l'intestazione
         try (BufferedReader br = new BufferedReader(new FileReader(TEST_FILE))) {
             String header = br.readLine();
-            assertEquals("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3", header);
+            assertEquals("NOME;COGNOME;NUMERO1;NUMERO2;NUMERO3;E-MAIL1;E-MAIL2;E-MAIL3;", header);
             assertNull(br.readLine(), "Il file deve contenere solo l'intestazione");
         }
     }
