@@ -116,9 +116,9 @@ public class ContattoTest {
      */
     @Test
     public void testUguaglianzaEConfronto() {
-        Contatto contatto1 = new Contatto("Giulia", "Neri", "", "", "", "", "", "", false);
-        Contatto contatto2 = new Contatto("Giulia", "Neri", "", "", "", "", "", "", false);
-        Contatto contatto3 = new Contatto("Luca", "Verdi", "", "", "", "", "", "", false);
+        Contatto contatto1 = new Contatto("Giulia", "Neri", "", "", "", "", "", "", true);
+        Contatto contatto2 = new Contatto("Giulia", "Neri", "", "", "", "", "", "", true);
+        Contatto contatto3 = new Contatto("Luca", "Verdi", "", "", "", "", "", "", true);
 
         // Test per equals
         assertEquals(contatto1, contatto2, "I contatti con lo stesso nome e cognome dovrebbero essere uguali");
